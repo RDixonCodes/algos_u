@@ -45,7 +45,7 @@ class Node{
     }
 }
 
-/* This function should accept a value
+/* PUSH: This function should accept a value
 Create a new node using the value passed to the function
 If there is no head property on the list, set the head and tail to be the newly created node.
 Otherwise set the next property on the tail to be the new node and set the tail property
@@ -121,7 +121,7 @@ class SinglyLinkedList{
         newNode.next = this.head;
         this.head = newNode;
         }
-        this.length ++;
+        this.length++;
         return this;
     }
 
@@ -140,7 +140,7 @@ class SinglyLinkedList{
         return current;
     }
 
-    /*This function should accept an imdex and a value. Use the GET function
+    /* SET: This function should accept an imdex and a value. Use the GET function
     to find the specific node. If the node is not found, return false.
     If the node is found, set the value of that node to be the value
     passed to the function and return true.*/
@@ -211,11 +211,12 @@ class SinglyLinkedList{
 
 }
 
-// var list = new SinglyLinkedList()
-// list.push("this")
-// list.push("is")
-// list.push("working")
-// list.get(1)
+var list = new SinglyLinkedList()
+list.push("this")
+list.push("is")
+list.push("working")
+list.get(1)
+list.set(2,34)
 // list.insert(0,45)
 // list.remove(0)
 // list.reverse()
@@ -231,7 +232,7 @@ class SinglyLinkedList{
 // first.next.next.next = new Node("are")
 // first.next.next.next.next = new Node("you")
 
-// console.log(list)
+console.log(list)
 
 // class newLinkedList {
 //     constructor() {
