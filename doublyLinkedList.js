@@ -52,7 +52,7 @@ class doublyLinkedList {
         } else {
             this.tail = currentTail.prev;
             this.tail.next = null;
-            currentTail.prev = null;
+            currentTail.prev = null; // Needed to sever the connection from old tail.
         }
         this.length--;
         return currentTail;
