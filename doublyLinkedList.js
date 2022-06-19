@@ -36,8 +36,8 @@ class doublyLinkedList {
     }
 
     /* POP: If there's no head, return undefined.
-    Stor the current tail in a variable to return later.
-    If the lendth is 1, set the head and tail to be null.
+    Store the current tail in a variable to return later.
+    If the length is 1, set the head and tail to be null.
     Update the tail to be the previous node.
     Set the newTail's next to null
     Decrement the length.
@@ -106,7 +106,6 @@ class doublyLinkedList {
     get(idx) {
         if(idx < 0 || idx >= this.length) return null;
         if(idx <= this.length/2) {
-        console.log("WORKING FROM START")
         var counter = 0;
         var current = this.head;
         while(counter !== idx) {
@@ -114,7 +113,6 @@ class doublyLinkedList {
             counter++;
         }
     } else {
-        console.log("WORKING FROM END")
         var counter = this.length - 1;
         var current = this.tail;
         while(counter !== idx) {
@@ -124,7 +122,78 @@ class doublyLinkedList {
     }
     console.log(current)
         return current;
-}
+}   
+
+    /* Create a variable which is the result of the GET method at the index passed to the function.
+    If the GET method returns a valid node, set the value of the node to be the value passed to the 
+    function, return TRUE. Otherwise, return false.*/
+
+    set(idx, val) {
+        var foundNode = this.get(idx);
+        if (foundNode) {
+            foundNode.val = val;
+            return true;
+        }
+        return false
+    }
+
+    /* INSERT: If the index is less than zero or greater than or equal to the length, return false.
+    If the index is 0, unshift. If the index is the same as the length, push. 
+    Use the get method to access the index -1. Set the next and prev properties on the correct nodes to link everything
+    together. Increment the length. Return true.
+    */
+
+    insert(idx, val) {
+        if (idx < 0 || idx > this.length) return false;
+        if (idx === 0) return this.unshift(val);
+        if (idx === this.length) return this.push(val);
+        var newNode = new Node(val)
+        var beforeNode = this.get(idx - 1);
+        var afterNode = beforeNode.next;
+        beforeNode.next = newNode, newNode.prev =  beforeNode;
+        newNode.next = afterNode, afterNode.prev = newNode;
+        this.length++;
+        return true;
+    }
+
+    /*Remove: If the index is less than zero or greater than or equal to the 
+    length return undefined. If the index is 0, SHIFT. If the index is the same
+    as teh length-1, POP. Use the get method to retrieve the item to be removed.
+    Update the next and prev properties to remove the found node from the list.
+    Set next and prev to null on the found node. Decrement the length.
+    Return the removed node.*/
+
+    remove(idx) {
+        if (idx < 0 || idx >= this.length) return undefined;
+        if (idx === 0) return this.shift();
+        if (idx === this.length - 1) return this.pop();
+        var removedNode = this.get(idx);
+        var beforeNode = removedNode.prev;
+        var afterNode = removedNode.next;
+        beforeNode.next = afterNode;
+        afterNode.prev = beforeNode;
+        // removedNode.prev.next = removedNode.next, removedNode.next.prev = removedNode.prev;
+        removedNode.next = null;
+        removedNode.prev = null;
+        this.length--;
+        return removedNode;
+    }
+
+    reverse() {
+        if(this.length === 0) return undefined;
+        var temp = null;
+        var current = this.head;
+        while(current !== null) {
+            temp = current.prev;
+            current.prev = current.next;
+            current.next = temp;
+            current = current.prev;
+        }
+        if(temp !== null) {
+            this.head = temp.prev;
+        }
+        return this;
+    }
 }
 
 list = new doublyLinkedList();
@@ -133,10 +202,14 @@ list.push(90);
 list.push(95);
 list.push(100);
 list.push(105);
-list.push(110);
-// list.pop();
+// list.push(105);
+// list.push(110);
+// // list.pop();
 // list.shift();
-list.unshift(85)
-list.get(-1);
-
+// list.unshift(85)
+// list.get(3);
+// list.set(3, 25)
+// list.insert(0, 80);
+// list.remove(1)
+list.reverse();
 console.log(list)

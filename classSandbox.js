@@ -20,14 +20,14 @@ class singlyList{
 
     push(val) {
         var newNode = new Node(val);
-        if(! this.head){
+        if(!this.head){
             this.head = newNode;
             this.tail = this.head;
         } else {
             this.tail.next = newNode;
             this.tail = newNode;
         }
-        this.length +=1;
+        this.length++;
         return this;
     }
 
@@ -116,18 +116,39 @@ class singlyList{
         return false;
     }
 
+    /* INSERT: If the index is less than zero or greater than the length, return false.
+    If the index is the same as the length, push a new node to the end of the list. If
+    the index is 0, UNSHIFT  a new node to the start of the list. Otherwise, using the get
+    method, access the node at the index -1. Set the next property on that node to be the new
+    node. Set the next property on the new node to be the previous next. Increment the length.
+    Return true. */
+
+    insert(idx, val) {
+        if(idx < 0 || idx > this.length) return false;
+        if(idx === this.length) return thisList.push(val);
+        if(idx === 0) return thisList.unshift(val);
+        var newNode = new Node(val);
+        var prevNode = this.get(idx - 1);
+        var temp = prevNode.next;
+        prevNode.next = newNode;
+        newNode.next = temp;
+        this.length++
+        return true;
+    }
+
 
 }
 
-var thisNode = new singlyList;
+var thisList = new singlyList;
 
-thisNode.push(21);
-thisNode.push(34);
-thisNode.push(47);
-// thisNode.pop();
-thisNode.shift();
-thisNode.unshift(51);
-thisNode.get(2);
-thisNode.set(1,34);
+thisList.push(21);
+thisList.push(34);
+thisList.push(47);
+// thisList.pop();
+// thisList.shift();
+// thisList.unshift(51);
+// thisList.get(2);
+// thisList.set(1,34);
+thisList.insert(1, 30)
 
-console.log(thisNode);
+console.log(thisList);
